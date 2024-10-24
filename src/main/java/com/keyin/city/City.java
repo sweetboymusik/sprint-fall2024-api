@@ -1,13 +1,12 @@
 package com.keyin.city;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.keyin.airport.Airport;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class City {
-    // fields
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -15,6 +14,9 @@ public class City {
     private String name;
     private String state;
     private int population;
+
+    @OneToMany(mappedBy = "city")
+    private List<Airport> airports;
 
     // constructors
     public City() {}
