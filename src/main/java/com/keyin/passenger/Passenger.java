@@ -29,6 +29,14 @@ public class Passenger {
         this.city = city;
     }
 
+    public Passenger(PassengerDTO passenger, City city) {
+        this.firstName = passenger.getFirstName();
+        this.lastName = passenger.getLastName();
+        this.phoneNumber = passenger.getPhoneNumber();
+        this.email = passenger.getEmail();
+        this.city = city;
+    }
+
     // getters and setters
     public int getId() {
         return id;
