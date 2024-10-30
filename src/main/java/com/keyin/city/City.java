@@ -1,5 +1,6 @@
 package com.keyin.city;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.keyin.airport.Airport;
 import jakarta.persistence.*;
 
@@ -19,7 +20,8 @@ public class City {
     private List<Airport> airports;
 
     // constructors
-    public City() {}
+    public City() {
+    }
 
     public City(String name, String state, int population) {
         this.name = name;
@@ -58,5 +60,13 @@ public class City {
 
     public void setPopulation(int population) {
         this.population = population;
+    }
+
+    public List<Airport> getAirports() {
+        return airports;
+    }
+
+    public void setAirports(List<Airport> airports) {
+        this.airports = airports;
     }
 }
