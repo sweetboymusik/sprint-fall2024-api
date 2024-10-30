@@ -1,7 +1,9 @@
 package com.keyin.airline;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.keyin.aircraft.Aircraft;
+import com.keyin.views.Views;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -10,12 +12,17 @@ import java.util.List;
 public class Airline {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({Views.AirlineView.class, Views.AircraftView.class})
     private int id;
 
+    @JsonView({Views.AirlineView.class, Views.AircraftView.class})
     private String name;
+
+    @JsonView({Views.AirlineView.class, Views.AircraftView.class})
     private String country;
 
     @OneToMany(mappedBy = "airline")
+    @JsonView(Views.AirlineView.class)
     private List<Aircraft> aircraftList;
 
     // constructors

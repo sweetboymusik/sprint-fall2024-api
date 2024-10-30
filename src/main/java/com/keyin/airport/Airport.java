@@ -1,18 +1,25 @@
 package com.keyin.airport;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.keyin.city.City;
+import com.keyin.views.Views;
 import jakarta.persistence.*;
 
 @Entity
 public class Airport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({Views.CityView.class, Views.AirportView.class})
     private int id;
 
+    @JsonView({Views.CityView.class, Views.AirportView.class})
     private String name;
+
+    @JsonView({Views.CityView.class, Views.AirportView.class})
     private String code;
 
     @ManyToOne
+    @JsonView(Views.AirportView.class)
     private City city;
 
     // constructors
