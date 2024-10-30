@@ -1,20 +1,31 @@
 package com.keyin.passenger;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.keyin.city.City;
+import com.keyin.views.Views;
 import jakarta.persistence.*;
 
 @Entity
 public class Passenger {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(Views.PassengerView.class)
     private int id;
 
+    @JsonView(Views.PassengerView.class)
     private String firstName;
+
+    @JsonView(Views.PassengerView.class)
     private String lastName;
+
+    @JsonView(Views.PassengerView.class)
     private String phoneNumber;
+
+    @JsonView(Views.PassengerView.class)
     private String email;
 
     @ManyToOne
+    @JsonView(Views.PassengerView.class)
     private City city;
 
     // constructors

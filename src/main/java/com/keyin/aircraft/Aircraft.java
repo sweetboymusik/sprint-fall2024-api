@@ -1,23 +1,25 @@
 package com.keyin.aircraft;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.*;
 import com.keyin.airline.Airline;
+import com.keyin.views.Views;
 import jakarta.persistence.*;
 
 @Entity
 public class Aircraft {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({Views.AircraftView.class, Views.AirlineView.class})
     private int id;
 
+    @JsonView({Views.AircraftView.class, Views.AirlineView.class})
     private String type;
+
+    @JsonView({Views.AircraftView.class, Views.AirlineView.class})
     private int passengerCapacity;
 
     @ManyToOne
-    @JsonIgnoreProperties({"aircraftList"})
+    @JsonView(Views.AircraftView.class)
     private Airline airline;
 
     // constructors

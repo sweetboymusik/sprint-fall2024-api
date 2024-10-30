@@ -1,7 +1,8 @@
 package com.keyin.city;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.keyin.airport.Airport;
+import com.keyin.views.Views;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -10,13 +11,20 @@ import java.util.List;
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({Views.CityView.class, Views.AirportView.class, Views.PassengerView.class})
     private int id;
 
+    @JsonView({Views.CityView.class, Views.AirportView.class, Views.PassengerView.class})
     private String name;
+
+    @JsonView({Views.CityView.class, Views.AirportView.class, Views.PassengerView.class})
     private String state;
+
+    @JsonView({Views.CityView.class, Views.AirportView.class, Views.PassengerView.class})
     private int population;
 
     @OneToMany(mappedBy = "city")
+    @JsonView(Views.CityView.class)
     private List<Airport> airports;
 
     // constructors
