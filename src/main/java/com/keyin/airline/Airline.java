@@ -1,5 +1,6 @@
 package com.keyin.airline;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.keyin.aircraft.Aircraft;
 import jakarta.persistence.*;
 

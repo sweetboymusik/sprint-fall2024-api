@@ -1,5 +1,9 @@
 package com.keyin.aircraft;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.keyin.airline.Airline;
 import jakarta.persistence.*;
 
@@ -13,6 +17,7 @@ public class Aircraft {
     private int passengerCapacity;
 
     @ManyToOne
+    @JsonIgnoreProperties({"aircraftList"})
     private Airline airline;
 
     // constructors
@@ -22,6 +27,12 @@ public class Aircraft {
     public Aircraft(String type, int passengerCapacity, Airline airline) {
         this.type = type;
         this.passengerCapacity = passengerCapacity;
+        this.airline = airline;
+    }
+
+    public Aircraft(AircraftDTO aircraftDTO, Airline airline) {
+        this.type = aircraftDTO.getType();
+        this.passengerCapacity = aircraftDTO.getPassengerCapacity();
         this.airline = airline;
     }
 
