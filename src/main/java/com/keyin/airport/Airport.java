@@ -23,11 +23,18 @@ public class Airport {
     private City city;
 
     // constructors
-    public Airport() {}
+    public Airport() {
+    }
 
     public Airport(String name, String code, City city) {
         this.name = name;
         this.code = code;
+        this.city = city;
+    }
+
+    public Airport(AirportDTO airportDTO, City city) {
+        this.name = airportDTO.getName();
+        this.code = airportDTO.getCode();
         this.city = city;
     }
 

@@ -20,11 +20,13 @@ public class CityController {
     }
 
     @GetMapping("/city/id/{id}")
+    @JsonView(Views.CityView.class)
     public City getCity(@PathVariable int id) {
         return cityService.getCityById(id);
     }
 
     @GetMapping("/city/name/{name}")
+    @JsonView(Views.CityView.class)
     public City getCityByName(@PathVariable String name) {
         return cityService.getCityByName(name);
     }
