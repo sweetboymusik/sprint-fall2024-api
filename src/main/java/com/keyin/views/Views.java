@@ -6,4 +6,5 @@ public class Views {
     public static class PassengerView {}  // For airports with full `city` details
     public static class AirlineView {}  // For airports with full `city` details
     public static class AircraftView {}  // For airports with full `city` details
+    public static class FlightView {}
 }

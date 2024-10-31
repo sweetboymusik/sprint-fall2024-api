@@ -1,8 +1,8 @@
-package com.keyin.aircraft;
+package com.keyin.flight;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AircraftRepository extends CrudRepository<Aircraft, Integer> {
+public interface FlightRepository extends CrudRepository<Flight, Long> {
 }

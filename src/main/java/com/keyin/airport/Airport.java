@@ -9,17 +9,17 @@ import jakarta.persistence.*;
 public class Airport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView({Views.CityView.class, Views.AirportView.class})
+    @JsonView({Views.CityView.class, Views.AirportView.class, Views.FlightView.class})
     private int id;
 
-    @JsonView({Views.CityView.class, Views.AirportView.class})
+    @JsonView({Views.CityView.class, Views.AirportView.class, Views.FlightView.class})
     private String name;
 
-    @JsonView({Views.CityView.class, Views.AirportView.class})
+    @JsonView({Views.CityView.class, Views.AirportView.class, Views.FlightView.class})
     private String code;
 
     @ManyToOne
-    @JsonView(Views.AirportView.class)
+    @JsonView({Views.AirportView.class, Views.FlightView.class})
     private City city;
 
     // constructors
