@@ -4,40 +4,47 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.keyin.aircraft.Aircraft;
 import com.keyin.airport.Airport;
+import com.keyin.passenger.Passenger;
 import com.keyin.views.Views;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView(Views.FlightView.class)
+    @JsonView({Views.FlightView.class, Views.PassengerView.class})
     private int id;
 
-    @JsonView(Views.FlightView.class)
+    @JsonView({Views.FlightView.class, Views.PassengerView.class})
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime departure;
 
-    @JsonView(Views.FlightView.class)
+    @JsonView({Views.FlightView.class, Views.PassengerView.class})
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime arrival;
 
-    @OneToOne
-    @JsonView(Views.FlightView.class)
+    @ManyToOne
+    @JsonView({Views.FlightView.class, Views.PassengerView.class})
     private Airport origin;
 
-    @OneToOne
-    @JsonView(Views.FlightView.class)
+    @ManyToOne
+    @JsonView({Views.FlightView.class, Views.PassengerView.class})
     private Airport destination;
 
-    @OneToOne
-    @JsonView(Views.FlightView.class)
+    @ManyToOne
+    @JsonView({Views.FlightView.class, Views.PassengerView.class})
     private Aircraft aircraft;
 
     @JsonView(Views.FlightView.class)
     private int numberOfPassengers;
+
+    @ManyToMany(mappedBy = "flights")
+    @JsonView(Views.FlightView.class)
+    private List<Passenger> passengerList;
 
     // constructors
     public Flight() {}
@@ -49,10 +56,20 @@ public class Flight {
         this.destination = destination;
         this.aircraft = aircraft;
         this.numberOfPassengers = numberOfPassengers;
+        this.passengerList = new ArrayList<Passenger>();
+    }
+
+    public Flight(FlightDTO flightDTO,Airport origin, Airport destination, Aircraft aircraft) {
+        this.departure = flightDTO.getDeparture();
+        this.arrival = flightDTO.getArrival();
+        this.origin = origin;
+        this.destination = destination;
+        this.aircraft = aircraft;
+        this.numberOfPassengers = flightDTO.getNumberOfPassengers();
+        this.passengerList = new ArrayList<Passenger>();
     }
 
     // getters and setters
-
     public int getId() {
         return id;
     }
@@ -107,5 +124,13 @@ public class Flight {
 
     public void setNumberOfPassengers(int numberOfPassengers) {
         this.numberOfPassengers = numberOfPassengers;
+    }
+
+    public List<Passenger> getPassengerList() {
+        return passengerList;
+    }
+
+    public void setPassengerList(List<Passenger> passengers) {
+        this.passengerList = passengers;
     }
 }

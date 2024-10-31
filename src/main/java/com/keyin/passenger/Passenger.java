@@ -2,8 +2,12 @@ package com.keyin.passenger;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.keyin.city.City;
+import com.keyin.flight.Flight;
 import com.keyin.views.Views;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Passenger {
@@ -28,6 +32,15 @@ public class Passenger {
     @JsonView(Views.PassengerView.class)
     private City city;
 
+    @ManyToMany
+    @JoinTable(
+            name = "flight_passenger",
+            joinColumns = @JoinColumn(name = "passenger_id"),
+            inverseJoinColumns = @JoinColumn(name = "flight_id")
+    )
+    @JsonView(Views.PassengerView.class)
+    private List<Flight> flights;
+
     // constructors
     public Passenger() {
     }
@@ -38,6 +51,7 @@ public class Passenger {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.city = city;
+        this.flights = new ArrayList<Flight>();
     }
 
     public Passenger(PassengerDTO passenger, City city) {
@@ -46,6 +60,7 @@ public class Passenger {
         this.phoneNumber = passenger.getPhoneNumber();
         this.email = passenger.getEmail();
         this.city = city;
+        this.flights = new ArrayList<Flight>();
     }
 
     // getters and setters
@@ -95,5 +110,13 @@ public class Passenger {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public List<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(List<Flight> flights) {
+        this.flights = flights;
     }
 }

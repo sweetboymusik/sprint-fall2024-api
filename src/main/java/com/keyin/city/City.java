@@ -11,16 +11,16 @@ import java.util.List;
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView({Views.CityView.class, Views.AirportView.class, Views.PassengerView.class})
+    @JsonView({Views.CityView.class, Views.AirportView.class, Views.PassengerView.class, Views.FlightView.class})
     private int id;
 
-    @JsonView({Views.CityView.class, Views.AirportView.class, Views.PassengerView.class})
+    @JsonView({Views.CityView.class, Views.AirportView.class, Views.PassengerView.class, Views.FlightView.class})
     private String name;
 
-    @JsonView({Views.CityView.class, Views.AirportView.class, Views.PassengerView.class})
+    @JsonView({Views.CityView.class, Views.AirportView.class, Views.PassengerView.class, Views.FlightView.class})
     private String state;
 
-    @JsonView({Views.CityView.class, Views.AirportView.class, Views.PassengerView.class})
+    @JsonView({Views.CityView.class, Views.AirportView.class, Views.PassengerView.class, Views.FlightView.class})
     private int population;
 
     @OneToMany(mappedBy = "city")
