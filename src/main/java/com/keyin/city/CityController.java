@@ -2,9 +2,7 @@ package com.keyin.city;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.keyin.views.Views;
-import jakarta.persistence.PostUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
