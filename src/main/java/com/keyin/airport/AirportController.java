@@ -1,7 +1,6 @@
 package com.keyin.airport;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.keyin.city.CityService;
 import com.keyin.views.Views;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
