@@ -33,7 +33,13 @@ public class FlightService {
         return flightRepository.findAll();
     }
 
-    public Flight addFlight(Flight flight) {
+    public Flight addFlight(FlightDTO flightDTO) {
+        Airport origin = airportService.getAirportById(flightDTO.getOriginAirportId());
+        Airport destination = airportService.getAirportById(flightDTO.getDestinationAirportId());
+        Aircraft aircraft = aircraftService.getAircraftById(flightDTO.getAircraftId());
+
+        Flight flight = new Flight(flightDTO, origin, destination, aircraft);
+
         return flightRepository.save(flight);
     }
 

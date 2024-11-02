@@ -1,12 +1,6 @@
 package com.keyin.flight;
 
-
 import com.fasterxml.jackson.annotation.JsonView;
-import com.keyin.aircraft.Aircraft;
-import com.keyin.aircraft.AircraftRepository;
-import com.keyin.airport.Airport;
-import com.keyin.airport.AirportRepository;
-import com.keyin.exceptions.EntityNotFoundException;
 import com.keyin.views.Views;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +10,6 @@ import org.springframework.web.bind.annotation.*;
 public class FlightController {
     @Autowired
     private FlightService flightService;
-
-    @Autowired
-    private AircraftRepository aircraftRepository;
-
-    @Autowired
-    private AirportRepository airportRepository;
 
     @GetMapping("/flight/all")
     @JsonView(Views.FlightView.class)
@@ -38,18 +26,7 @@ public class FlightController {
     @PostMapping("/flight")
     @JsonView(Views.FlightView.class)
     public Flight addFlight(@RequestBody FlightDTO flightDTO) {
-        Airport origin = airportRepository.findById(flightDTO.getOriginAirportId())
-                .orElseThrow(() -> new EntityNotFoundException("Origin airport not found"));
-
-        Airport destination = airportRepository.findById(flightDTO.getDestinationAirportId())
-                .orElseThrow(() -> new EntityNotFoundException("Destination airport not found"));
-
-        Aircraft aircraft = aircraftRepository.findById(flightDTO.getAircraftId())
-                .orElseThrow(() -> new EntityNotFoundException("Aircraft not found"));
-
-        Flight flight = new Flight(flightDTO, origin, destination, aircraft);
-
-        return flightService.addFlight(flight);
+        return flightService.addFlight(flightDTO);
     }
 
     @PostMapping("/flight/id/{flightId}/passengers/add/{passengerId}")
