@@ -39,26 +39,18 @@ public class AirportController {
     @JsonView(Views.AirportView.class)
     public Airport addAirport(@RequestBody AirportDTO airportDTO) {
         City city = cityService.getCityById(airportDTO.getCityId());
+        Airport airport = new Airport(airportDTO, city);
 
-        if (city != null) {
-            Airport airport = new Airport(airportDTO, city);
-            return airportService.addAirport(airport);
-        } else {
-            throw new EntityNotFoundException("City id is not valid");
-        }
+        return airportService.addAirport(airport);
     }
 
     @PostMapping("/airport/id/{id}")
     @JsonView(Views.AirportView.class)
     public Airport updateAirportById(@PathVariable int id, @RequestBody AirportDTO airportDTO) {
         City city = cityService.getCityById(airportDTO.getCityId());
+        Airport airport = new Airport(airportDTO, city);
 
-        if (city != null) {
-            Airport airport = new Airport(airportDTO, city);
-            return airportService.updateAirportById(id, airport);
-        } else {
-            throw new EntityNotFoundException("City id is not valid");
-        }
+        return airportService.updateAirportById(id, airport);
     }
 
     @DeleteMapping("/airport/id/{id}")

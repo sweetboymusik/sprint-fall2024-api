@@ -20,7 +20,8 @@ public class AirportService {
     }
 
     public Airport getAirportById(int id) {
-        return airportRepository.findById(id).orElse(null);
+        return airportRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Airport not found"));
     }
 
     public Airport getAirportByName(String name) {

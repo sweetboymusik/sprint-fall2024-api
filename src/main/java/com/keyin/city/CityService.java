@@ -20,7 +20,8 @@ public class CityService {
     }
 
     public City getCityById(int id) {
-        return cityRepository.findById(id).orElse(null);
+        return cityRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("City not found"));
     }
 
     public City getCityByName(String name) {
@@ -28,8 +29,7 @@ public class CityService {
     }
 
     public City updateCityById(int id, City city) {
-        City cityToUpdate = cityRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("City not found"));
+        City cityToUpdate = getCityById(id);
 
         if (city.getName() != null) cityToUpdate.setName(city.getName());
         if (city.getState() != null) cityToUpdate.setState(city.getState());
