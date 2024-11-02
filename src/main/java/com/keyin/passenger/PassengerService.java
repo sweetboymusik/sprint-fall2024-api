@@ -18,7 +18,10 @@ public class PassengerService {
         return passengerRepository.findAll();
     }
 
-    public Passenger addPassenger(Passenger passenger) {
+    public Passenger addPassenger(PassengerDTO passengerDTO) {
+        City city = cityService.getCityById(passengerDTO.getCityId());
+        Passenger passenger = new Passenger(passengerDTO, city);
+
         return passengerRepository.save(passenger);
     }
 
@@ -27,7 +30,11 @@ public class PassengerService {
                 .orElseThrow(() -> new EntityNotFoundException("Passenger not found"));
     }
 
-    public Passenger getPassengerByName(String firstName, String lastName) {
+    public Passenger getPassengerByName(String name) {
+        String[] names = name.split("_");
+        String firstName = names[0];
+        String lastName = names[1];
+
         Passenger passenger = passengerRepository.findByFirstNameAndLastName(firstName, lastName);
 
         if (passenger == null) {
