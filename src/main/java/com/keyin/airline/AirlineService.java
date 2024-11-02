@@ -23,7 +23,13 @@ public class AirlineService {
     }
 
     public Airline getAirlineByName(String name) {
-        return airlineRepository.findByName(name);
+        Airline airline = airlineRepository.findByName(name);
+
+        if (airline == null) {
+            throw new EntityNotFoundException("Airline not found");
+        }
+
+        return airline;
     }
 
     public Airline updateAirlineById(int id, Airline airline) {
@@ -37,7 +43,6 @@ public class AirlineService {
 
     public void deleteAirlineById(int id) {
         Airline airlineToDelete = getAirlineById(id);
-
         airlineRepository.delete(airlineToDelete);
     }
 }
