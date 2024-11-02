@@ -7,30 +7,27 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
+@JsonView(Views.AirlineView.class)
 public class AirlineController {
     @Autowired
     private AirlineService airlineService;
 
     @GetMapping("/airline/all")
-    @JsonView(Views.AirlineView.class)
     public Iterable<Airline> getAllAirlines() {
         return airlineService.getAllAirlines();
     }
 
     @GetMapping("/airline/id/{id}")
-    @JsonView(Views.AirlineView.class)
     public Airline getAirlineById(@PathVariable int id) {
         return airlineService.getAirlineById(id);
     }
 
     @GetMapping("/airline/name/{name}")
-    @JsonView(Views.AirlineView.class)
     public Airline getAirlineByName(@PathVariable String name) {
         return airlineService.getAirlineByName(name);
     }
 
     @PostMapping("/airline")
-    @JsonView(Views.AirlineView.class)
     public Airline addAirline(@RequestBody Airline airline) {
         return airlineService.addAirline(airline);
     }
