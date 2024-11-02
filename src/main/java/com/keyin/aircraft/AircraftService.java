@@ -1,7 +1,6 @@
 package com.keyin.aircraft;
 
 import com.keyin.airline.Airline;
-import com.keyin.airline.AirlineRepository;
 import com.keyin.airline.AirlineService;
 import com.keyin.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,16 +9,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class AircraftService {
     @Autowired
-    AircraftRepository aircraftRepository;
+    private AircraftRepository aircraftRepository;
 
     @Autowired
-    AirlineService airlineService;
+    private AirlineService airlineService;
 
     public Iterable<Aircraft> getAllAircraft() {
         return aircraftRepository.findAll();
     }
 
-    public Aircraft addAircraft(Aircraft aircraft) {
+    public Aircraft addAircraft(AircraftDTO aircraftDTO) {
+        Airline airline = airlineService.getAirlineById(aircraftDTO.getAirlineId());
+        Aircraft aircraft = new Aircraft(aircraftDTO, airline);
+
         return aircraftRepository.save(aircraft);
     }
 
