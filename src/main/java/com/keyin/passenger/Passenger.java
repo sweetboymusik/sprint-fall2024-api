@@ -13,13 +13,13 @@ import java.util.List;
 public class Passenger {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView(Views.PassengerView.class)
+    @JsonView({Views.PassengerView.class, Views.FlightView.class})
     private int id;
 
-    @JsonView(Views.PassengerView.class)
+    @JsonView({Views.PassengerView.class, Views.FlightView.class})
     private String firstName;
 
-    @JsonView(Views.PassengerView.class)
+    @JsonView({Views.PassengerView.class, Views.FlightView.class})
     private String lastName;
 
     @JsonView(Views.PassengerView.class)
