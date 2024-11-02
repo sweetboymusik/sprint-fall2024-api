@@ -45,6 +45,6 @@ public class AircraftService {
 
     public void deleteAircraftById(int id) {
         Aircraft aircraftToDelete = getAircraftById(id);
-        aircraftRepository.deleteById(id);
+        aircraftRepository.delete(aircraftToDelete);
     }
 }
