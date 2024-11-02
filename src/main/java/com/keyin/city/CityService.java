@@ -2,8 +2,6 @@ package com.keyin.city;
 
 import com.keyin.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,7 +23,13 @@ public class CityService {
     }
 
     public City getCityByName(String name) {
-        return cityRepository.findByName(name);
+        City city = cityRepository.findByName(name);
+
+        if (city == null) {
+            throw new EntityNotFoundException("City not found");
+        }
+
+        return city;
     }
 
     public City updateCityById(int id, City city) {
@@ -39,9 +43,7 @@ public class CityService {
     }
 
     public void deleteCityById(int id) {
-        City cityToDelete = cityRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("City not found"));
-
+        City cityToDelete = getCityById(id);
         cityRepository.delete(cityToDelete);
     }
 }
