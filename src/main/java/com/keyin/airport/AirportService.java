@@ -1,5 +1,7 @@
 package com.keyin.airport;
 
+import com.keyin.city.City;
+import com.keyin.city.CityService;
 import com.keyin.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,13 +11,17 @@ public class AirportService {
     @Autowired
     private AirportRepository airportRepository;
 
+    @Autowired
+    private CityService cityService;
+
     public Iterable<Airport> getAllAirports() {
         return airportRepository.findAll();
     }
 
-    ;
+    public Airport addAirport(AirportDTO airportDTO) {
+        City city = cityService.getCityById(airportDTO.getCityId());
+        Airport airport = new Airport(airportDTO, city);
 
-    public Airport addAirport(Airport airport) {
         return airportRepository.save(airport);
     }
 
@@ -25,16 +31,25 @@ public class AirportService {
     }
 
     public Airport getAirportByName(String name) {
-        return airportRepository.findByName(name);
+        Airport airport = airportRepository.findByName(name);
+
+        if (airport == null) {
+            throw new EntityNotFoundException("Airport not found");
+        }
+
+        return airport;
     }
 
-    public Airport updateAirportById(int id, Airport airport) {
-        Airport airportToUpdate = airportRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Airport not found"));
+    public Airport updateAirportById(int id, AirportDTO airportDTO) {
+        Airport airportToUpdate = getAirportById(id);
 
-        if (airport.getName() != null) airportToUpdate.setName(airport.getName());
-        if (airport.getCode() != null) airportToUpdate.setCode(airport.getCode());
-        if (airport.getCity() != null) airportToUpdate.setCity(airport.getCity());
+        if (airportDTO.getName() != null) airportToUpdate.setName(airportDTO.getName());
+        if (airportDTO.getCode() != null) airportToUpdate.setCode(airportDTO.getCode());
+
+        if (airportDTO.getCityId() > 0) {
+            City city = cityService.getCityById(airportDTO.getCityId());
+            airportToUpdate.setCity(city);
+        }
 
         return airportRepository.save(airportToUpdate);
     }
