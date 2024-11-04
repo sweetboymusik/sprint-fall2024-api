@@ -5,21 +5,23 @@ import com.keyin.city.City;
 import com.keyin.views.Views;
 import jakarta.persistence.*;
 
+import javax.swing.text.View;
+
 @Entity
 public class Airport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView({Views.CityView.class, Views.AirportView.class, Views.FlightView.class})
+    @JsonView({Views.CityView.class, Views.AirportView.class, Views.FlightView.class, Views.PassengerView.class})
     private int id;
 
-    @JsonView({Views.CityView.class, Views.AirportView.class, Views.FlightView.class})
+    @JsonView({Views.CityView.class, Views.AirportView.class, Views.FlightView.class, Views.PassengerView.class})
     private String name;
 
-    @JsonView({Views.CityView.class, Views.AirportView.class, Views.FlightView.class})
+    @JsonView({Views.CityView.class, Views.AirportView.class, Views.FlightView.class, Views.PassengerView.class})
     private String code;
 
     @ManyToOne
-    @JsonView({Views.AirportView.class, Views.FlightView.class})
+    @JsonView({Views.AirportView.class, Views.FlightView.class, Views.PassengerView.class})
     private City city;
 
     // constructors
