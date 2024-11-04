@@ -12,13 +12,13 @@ import java.util.List;
 public class Airline {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView({Views.AirlineView.class, Views.AircraftView.class, Views.FlightView.class})
+    @JsonView({Views.AirlineView.class, Views.AircraftView.class, Views.FlightView.class, Views.PassengerView.class})
     private int id;
 
-    @JsonView({Views.AirlineView.class, Views.AircraftView.class, Views.FlightView.class})
+    @JsonView({Views.AirlineView.class, Views.AircraftView.class, Views.FlightView.class, Views.PassengerView.class})
     private String name;
 
-    @JsonView({Views.AirlineView.class, Views.AircraftView.class, Views.FlightView.class})
+    @JsonView({Views.AirlineView.class, Views.AircraftView.class, Views.FlightView.class, Views.PassengerView.class})
     private String country;
 
     @OneToMany(mappedBy = "airline")
